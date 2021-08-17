@@ -1,0 +1,13 @@
+{
+  "name": "bootchain",
+  "version": "0.0.1",
+  "description": "",
+  "author": "papaver",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-minify": "^3.1.0",
+    "gulp-concat": "^2.6.1"
+  }
+}
