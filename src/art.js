@@ -56,9 +56,9 @@ const drawShape = (canvas, centerX, shape, color, width) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // setup draw
-  ctx.fillStyle = color;
-  ctx.lineWidth = width * lineFactor;
-  ctx.lineCap   = " round";
+  ctx.strokeStyle = color;
+  ctx.lineWidth   = width * lineFactor;
+  ctx.lineCap     = "round";
 
   // draw shape
   if (shape === 'square') {
@@ -67,7 +67,8 @@ const drawShape = (canvas, centerX, shape, color, width) => {
     const w = 1 * (halfWidth / xUnit);
     const h = 1 * (halfHeight / yUnit);
     ctx.beginPath();
-    ctx.fillRect(x, y, w, h);
+    ctx.rect(x, y, w, h);
+    ctx.stroke();
  } else if (shape == 'circle') {
     const x = pixelX(centerX)
     const y = pixelY(0)
@@ -75,7 +76,7 @@ const drawShape = (canvas, centerX, shape, color, width) => {
     const h = 0.5 * (halfHeight / yUnit);
     ctx.beginPath();
     ctx.arc(x, y, (w, h), 0, 2 * Math.PI);
-    ctx.fill();
+    ctx.stroke();
   }
 
 };

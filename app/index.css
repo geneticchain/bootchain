@@ -11,3 +11,14 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.controls {
+  background: rgba(45,45,45,.9);
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  color: #eee;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
