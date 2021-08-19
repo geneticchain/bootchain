@@ -137,7 +137,7 @@ const shapeDist = {
 const hashToTraits = hash => {
 
   // setup random fns
-  const seed = parseInt(hash.slice(0, 66), 16);
+  const seed = parseInt(hash, 16);
   const R    = mkRandom(seed);
 
   // randomize shape
