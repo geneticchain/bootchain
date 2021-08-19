@@ -144,6 +144,25 @@ const setupCanvas = () => {
 //-----------------------------------------------------------------------------
 
 /**
+ * Example of setting up a canvas with three.js.
+ */
+const setupCanvasThreeJs = () => {
+
+  const body = document.querySelector('body');
+
+  // setup render to match window size
+  const renderer = new THREE.WebGLRenderer( { antialias: true } );
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  body.appendChild(renderer.domElement);
+
+  return renderer;
+
+};
+
+//-----------------------------------------------------------------------------
+
+/**
  * Main entry function.
  */
 const run = (tokenData, tokenState) => {
