@@ -163,6 +163,30 @@ const setupCanvasThreeJs = () => {
 //-----------------------------------------------------------------------------
 
 /**
+ * Example of setting up a canvas with p5.js.
+ */
+const setupCanvasProcessingJs = () => {
+
+  // figure out canvas size
+  const width  = window.innerWidth;
+  const height = window.innerHeight;
+
+  // setup canvas to match window size
+  const renderer = createCanvas(width, height);
+  return renderer;
+
+};
+
+/**
+ * Draw is required to be defined for processing library to load into the
+ *  global scope.
+ */
+function draw() {
+};
+
+//-----------------------------------------------------------------------------
+
+/**
  * Main entry function.
  */
 const run = (tokenData, tokenState) => {
