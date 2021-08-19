@@ -7,15 +7,42 @@
 // functions
 //-----------------------------------------------------------------------------
 
+const u64  = n => BigInt.asUintN(64, n);
+const rotl = (x, k) => u64((x << k) | (x >> (64n - k)));
+
 /**
- * Algorithm "xor" from p.4 of Marsaglia, "Xorshift RNGs".  Returns a decimal
- *   from 0 to 1.
+ * xoshiro is a variation of the shift-register generator, using rotations in
+ *   addition to shifts.
+ *
+ * Algorithm by [Blackmanand Vigna 2018]
+ *   https://prng.di.unimi.it/xoshiro256starstar
+ *
  */
-const randomDecimal = seed => () => {
-  seed ^= seed << 13
-  seed ^= seed >> 17
-  seed ^= seed << 5
-  return ((seed < 0 ? ~seed + 1 : seed) % 1000) / 1000
+const xoshiro256strstr = s => () => {
+  const result = u64(rotl(u64(s[1] * 5n), 7n) * 9n);
+
+  let t = u64(s[1] << 17n);
+
+  s[2] ^= s[0];
+  s[3] ^= s[1];
+  s[1] ^= s[2];
+  s[0] ^= s[3];
+
+  s[2] ^= t;
+
+  s[3] = rotl(s[3], 45n);
+
+  return result;
+};
+
+//-----------------------------------------------------------------------------
+
+/**
+ * Returns a float between [0, 1) (inclusive of 0, exclusive of 1).
+ */
+const randomDecimal = xss => () => {
+  const t = xss();
+  return Number(t % 9007199254740991n) / 9007199254740991;
 }
 
 //-----------------------------------------------------------------------------
@@ -37,10 +64,14 @@ const randomInt = rn => (a, b) => Math.floor(rn(a, b + 1));
 /**
  * Seeds the randomization functions.
  */
-const mkRandom = seed => {
-  const r  = randomDecimal(seed);
-  const rn = randomNumber(r);
-  const ri = randomInt(rn);
+const mkRandom = hash => {
+  const s  = Array(4).fill()
+    .map((_,i) => i * 16 + 2)
+    .map(idx => u64(`0x${hash.slice(idx, idx + 16)}`));
+  const xss = xoshiro256strstr(s);
+  const r   = randomDecimal(xss);
+  const rn  = randomNumber(r);
+  const ri  = randomInt(rn);
   return {r, rn, ri};
 };
 
@@ -137,8 +168,7 @@ const shapeDist = {
 const hashToTraits = hash => {
 
   // setup random fns
-  const seed = parseInt(hash.slice(0, 18), 16);
-  const R    = mkRandom(seed);
+  const R = mkRandom(hash);
 
   // randomize shape
   const shape = selectRandomDist(shapeDist, R.r);
@@ -147,7 +177,6 @@ const hashToTraits = hash => {
   const color = randomColorHex(R.r)
 
   return {
-    seed,
     shape,
     color
   };
