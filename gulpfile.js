@@ -9,7 +9,7 @@
 //-----------------------------------------------------------------------------
 
 const gulp   = require('gulp');
-const minify = require('gulp-minify');
+const babel  = require('gulp-babel')
 const concat = require('gulp-concat');
 
 //-----------------------------------------------------------------------------
@@ -39,8 +39,13 @@ gulp.task('js:metadata', () => gulp
  */
 gulp.task('js:min', () => gulp
   .src('app/dist/art.js')
-  .pipe(minify())
-  .pipe(gulp.dest('app/dist'))
+  .pipe(babel({
+      presets: [['minify', {
+        typeConstructors: false
+      }]],
+      comments: false
+  }))
+  .pipe(gulp.dest('app/dist/min'))
 );
 
 //-----------------------------------------------------------------------------
