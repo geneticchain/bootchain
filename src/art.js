@@ -19,7 +19,7 @@ const elemFromTemplate = html => {
 
 //-----------------------------------------------------------------------------
 
-const createCanvas = (id, width, height) => {
+const createCanvasRaw = (id, width, height) => {
   const html = `
     <canvas id="${id}" width="${width}" height="${height}">`;
   return elemFromTemplate(html);
@@ -134,7 +134,7 @@ const setupCanvas = () => {
 
   // setup canvas
   const body   = document.querySelector('body');
-  const canvas = createCanvas('art-canvas', width, height);
+  const canvas = createCanvasRaw('art-canvas', width, height);
   body.appendChild(canvas);
 
   return canvas;
