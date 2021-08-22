@@ -78,7 +78,7 @@ them the power to customize your art work.
 
 This will contain the final distribution build for your art.  There will be three
 files generated for you.  **art.js** will contain the script that will run
-to generate your art.  **art-min.js** will be exactly the same thing but minified
+to generate your art.  **min/art.js** will be exactly the same thing but minified
 to save you money when you deploy to the chain.  Each byte deployed to the chain costs
 money so its important to be efficient here.  Lastly the **metadata.js** file
 will contain a function to convert the token hash into your art's traits.
@@ -137,6 +137,18 @@ can be ingested by the backend platform.  If you want to display traits of your
 artwork on opensea and the genetic chain platform this function is very important.
 The signature and name must be the same for the backend to correctly use it.
 
+### Libs Directory
+
+We currently suppport a couple major libraries.  If you would like to use a
+library we have not listed, please reach out to us and we'll try to accomadate.
+Example setups are included for some libraries.  Just copy the respective
+`art.{library}.js` to `art.js` and run `make`.  Please only use the library versions
+included in the repo as we need to be able reproduce all the projects exactly.
+If you need a newer or older version of a library please reach out.
+
+- [ThreeJs](https://threejs.org/)
+- [ProcessingJs](https://p5js.org/)
+
 ## Running the Project
 
 Make sure to always load the environment file before running any scripts.
@@ -167,6 +179,6 @@ Until the submission process is automated please just email us the app folder
 zipped up.  We're working on automating the submission process so you'll be able
 to do it right through this repo in the future.
 
-The two important files are **art-min.js** and **metadata.js**.  However having a
+The two important files are **min/art.js** and **metadata.js**.  However having a
 fully working setup helps as well since it gives us an idea how your state should
 work and is setup.
